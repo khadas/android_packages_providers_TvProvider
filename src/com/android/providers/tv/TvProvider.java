@@ -613,6 +613,12 @@ public class TvProvider extends ContentProvider {
         if (DEBUG) {
             Log.d(TAG, "insertWatchedProgram(uri=" + uri + ", values={" + values + "})");
         }
+        if (values != null
+            && values.getAsLong(TvContract.WatchedPrograms.COLUMN_CHANNEL_ID) != null
+            && values.getAsLong(TvContract.WatchedPrograms.COLUMN_CHANNEL_ID) < 0) {
+            Log.e(TAG, "channel id <0, uri=" + uri + ", values={" + values + "}");
+            return uri;
+        }
         Long watchStartTime = values.getAsLong(WatchedPrograms.COLUMN_WATCH_START_TIME_UTC_MILLIS);
         Long watchEndTime = values.getAsLong(WatchedPrograms.COLUMN_WATCH_END_TIME_UTC_MILLIS);
         // The system sends only two kinds of watch events:
