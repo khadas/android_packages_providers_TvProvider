@@ -339,10 +339,8 @@ public class TvProvider extends ContentProvider {
                     + Programs.COLUMN_INTERNAL_PROVIDER_FLAG4 + " INTEGER,"
                     + Programs.COLUMN_VERSION_NUMBER + " INTEGER,"
                     + "FOREIGN KEY("
-                            + Programs.COLUMN_CHANNEL_ID + "," + Programs.COLUMN_PACKAGE_NAME
-                            + ") REFERENCES " + CHANNELS_TABLE + "("
-                            + Channels._ID + "," + Channels.COLUMN_PACKAGE_NAME
-                            + ") ON UPDATE CASCADE ON DELETE CASCADE"
+                            + Programs.COLUMN_CHANNEL_ID + ") REFERENCES " + CHANNELS_TABLE + "("
+                            + Channels._ID + ") ON UPDATE CASCADE ON DELETE CASCADE"
                     + ");");
             db.execSQL("CREATE INDEX " + PROGRAMS_TABLE_PACKAGE_NAME_INDEX + " ON " + PROGRAMS_TABLE
                     + "(" + Programs.COLUMN_PACKAGE_NAME + ");");
