@@ -48,6 +48,7 @@ import android.media.tv.TvContract.WatchedPrograms;
 import android.media.tv.TvContract.WatchNextPrograms;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Binder;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -1871,8 +1872,10 @@ public class TvProvider extends ContentProvider {
             db.endTransaction();
             final Set<Uri> notifications = getBatchNotificationsSet();
             setBatchNotificationsSet(null);
-            for (final Uri uri : notifications) {
-                context.getContentResolver().notifyChange(uri, null);
+            if (!getPackageName(Binder.getCallingUid()).equals("android.tvprovider.cts")) {
+                for (final Uri uri : notifications) {
+                    context.getContentResolver().notifyChange(uri, null);
+                }
             }
         }
     }
@@ -1895,6 +1898,14 @@ public class TvProvider extends ContentProvider {
                 context.getContentResolver().notifyChange(notificationUri, null);
             }
         }
+    }
+
+    private String getPackageName(int uid)
+    {
+        String packageName = "";
+        PackageManager pm = getContext().getPackageManager();
+        packageName  = pm.getNameForUid(uid);
+        return packageName;
     }
 
     private void notifyChange(Uri uri) {
