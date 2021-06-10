@@ -1994,11 +1994,7 @@ public class TvProvider extends ContentProvider {
             return results;
         } finally {
             db.endTransaction();
-            final Set<Uri> notifications = getBatchNotificationsSet();
             setBatchNotificationsSet(null);
-            for (final Uri uri : notifications) {
-                context.getContentResolver().notifyChange(uri, null);
-            }
         }
     }
 
