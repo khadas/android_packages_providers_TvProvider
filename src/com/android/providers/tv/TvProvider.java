@@ -1069,7 +1069,7 @@ public class TvProvider extends ContentProvider {
             mOpenHelper = DatabaseHelper.getInstance(getContext());
         }
         mTransientRowHelper = TransientRowHelper.getInstance(getContext());
-        scheduleEpgDataCleanup();
+        //scheduleEpgDataCleanup();
         buildGenreMap();
 
         // DB operation, which may trigger upgrade, should not happen in onCreate.
